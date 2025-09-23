@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>API Tester</title>
+</head>
+<body>
+    <h1>Clarity AI Backend Test</h1>
+    <button id="testButton">Test API</button>
+    <pre id="response"></pre>
+
+    <script>
+        document.getElementById('testButton').addEventListener('click', () => {
+            console.log('Sending request to server...');
+            document.getElementById('response').textContent = 'Loading...';
+
+            fetch('http://localhost:5001/api/analyze', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    submissions: [
+                        "The mitochondria is the powerhouse of the cell.",
+                        "Cells get energy from the mitochondria.",
+                        "The powerhouse of the cell is the mitochondria."
+                    ]
+                }),
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                document.getElementById('response').textContent = JSON.stringify(data, null, 2);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('response').textContent = 'Error: ' + error.message;
+            });
+        });
+    </script>
+</body>
+</html>
