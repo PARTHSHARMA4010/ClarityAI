@@ -1,52 +1,65 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
+import connectDB from './db.js';
+import User from './models/User.js';
 
 dotenv.config();
+connectDB();
 
 const app = express();
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 8000;
 
 app.use(cors());
 app.use(express.json());
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+// --- AUTHENTICATION ROUTES ---
 
-app.post('/api/analyze', async (req, res) => {
+// POST /api/register
+app.post('/api/register', async (req, res) => {
   try {
-    const { submissions } = req.body;
-
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-
-    const prompt = `
-      You are an expert pedagogical assistant for a teacher. Your task is to analyze a list of student submissions for a specific question and identify the top 2-4 common conceptual misunderstandings.
-
-      Analyze the following student submissions:
-      ---
-      ${submissions.map((s, i) => `Submission ${i + 1}: "${s}"`).join('\n')}
-      ---
-
-      Based on your analysis, provide a response in a clean JSON format. Do not include any text outside of the JSON structure. The JSON object should have a single key "clusters", which is an array of objects. Each object in the array represents a single misconception cluster and must have the following four keys:
-      1. "title": A short, clear title for the misconception (e.g., "Confusing Correlation with Causation").
-      2. "explanation": A one or two-sentence explanation of what the students are misunderstanding.
-      3. "examples": An array of 1-3 direct, anonymized quotes from the provided submissions that exemplify this specific error.
-      4. "actionPlan": An object with two keys: "suggestion" (a brief, actionable suggestion for the teacher, like a 5-minute activity or a specific analogy to use) and "quiz" (an array of 2-3 short multiple-choice or true/false questions the teacher can use to check for understanding on this specific point).
-    `;
-
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const text = response.text();
-    
-    const cleanedText = text.replace(/```json/g, '').replace(/```/g, '').trim();
-    
-    res.status(200).json(JSON.parse(cleanedText));
-
+    const { email, password } = req.body;
+    let user = await User.findOne({ email });
+    if (user) {
+      return res.status(400).json({ detail: 'User already exists.' });
+    }
+    user = new User({ email, password });
+    await user.save();
+    res.status(201).json({ message: 'User registered successfully!' });
   } catch (error) {
-    console.error('Error processing request:', error);
-    res.status(500).json({ error: 'Failed to analyze submissions. Please check the server logs.' });
+    res.status(500).json({ detail: 'Server error' });
   }
 });
+
+// POST /api/login
+app.post('/api/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ detail: 'Invalid credentials.' });
+    }
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ detail: 'Invalid credentials.' });
+    }
+    const payload = { user: { id: user.id } };
+    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
+    res.json({ access_token: token });
+  } catch (error) {
+    res.status(500).json({ detail: 'Server error' });
+  }
+});
+
+
+// This is where your teammate's LLM logic will go eventually
+app.post('/api/analyze', (req, res) => {
+    // Placeholder for LLM analysis
+    res.json({ message: 'This is the LLM analysis endpoint.'})
+});
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
