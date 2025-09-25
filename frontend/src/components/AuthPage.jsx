@@ -1,12 +1,16 @@
 import { useState } from "react";
-import { FaEnvelope, FaLock, FaUserGraduate, FaChalkboardTeacher } from "react-icons/fa";
+import { FaEnvelope, FaLock, FaUserGraduate, FaChalkboardTeacher, FaGraduationCap  } from "react-icons/fa";
 import "./AuthPage.css";
+import { useNavigate } from 'react-router-dom';
+
 
 function AuthPage({ onLogin }) {
   const [isLogin, setIsLogin] = useState(true);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [role, setRole] = useState("student");
+  const navigate = useNavigate();
+
 
   const handleAuth = async (event) => {
     event.preventDefault();
@@ -35,7 +39,10 @@ function AuthPage({ onLogin }) {
       if (!response.ok) {
         throw new Error(data.detail || "Something went wrong");
       }
+      
       onLogin(data.access_token);
+      navigate('/'); // <--- ADD THE 3RD LINE HERE
+
     } catch (err) {
       setError(err.message);
     } finally {
@@ -49,14 +56,7 @@ function AuthPage({ onLogin }) {
       <div className="auth-left">
         <h1>✨ Clarity AI</h1>
         <p>Your personalized AI-powered learning companion.</p>
-        {/* <img 
-  src="https://cdn-icons-png.flaticon.com/512/2232/2232688.png" 
-  alt="Books" 
-  className="auth-illustration" 
-/> */}
-
-          <FaGraduationCap size={120} color="#7c3aed" />
-
+        <FaGraduationCap size={120} color="#7c3aed" />
       </div>
 
       {/* Right Side - Form */}

@@ -185,3 +185,26 @@
 .large-icon {
   font-size: 2rem; /* Bigger size for section headings */
 }
+
+
+.assignment-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none; /* Removes the underline */
+  color: inherit;       /* Makes the text use the parent color */
+  width: 100%;
+  padding: 15px; /* Add padding to make the whole area clickable */
+  border-radius: 8px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.assignment-link:hover {
+  background-color: #f4f7f9; /* A subtle hover effect */
+}
+
+/* Adjust the original assignment-item to remove its padding */
+.assignment-item {
+  padding: 0; /* The link now handles the padding */
+  border-bottom: 1px solid #dfe6eb;
+}

@@ -1,0 +1,179 @@
+.analysis-container {
+  background-color: var(--card-background);
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: var(--box-shadow);
+}
+
+.analyze-button {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+/* We can reuse the result styles from App.css */
+.results-container { margin-top: 20px; }
+.cluster {
+  background-color: var(--background-color);
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border-left: 4px solid var(--primary-blue);
+}
+.cluster h4 { margin-top: 0; }
+.action-plan {
+  margin-top: 15px;
+  border-top: 1px solid var(--border-color);
+  padding-top: 15px;
+}
+
+.analysis-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.view-submissions-link {
+  padding: 10px 15px;
+  text-decoration: none;
+  background-color: #ecf0f1;
+  color: var(--secondary-text);
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.analysis-container {
+  background-color: transparent; /* Changed for a cleaner look */
+  padding: 0;
+  box-shadow: none;
+}
+
+.analyze-button.large {
+  padding: 20px 30px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  border-radius: 12px;
+}
+
+.report-section {
+  background-color: var(--card-background);
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: var(--box-shadow);
+  margin-top: 30px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+}
+
+.stat-item h4 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: var(--secondary-text);
+  font-weight: 500;
+}
+
+.progress-bar {
+  display: flex;
+  height: 30px;
+  background-color: #fbeae9;
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 0.8rem;
+  color: white;
+  font-weight: 700;
+}
+
+.progress-correct {
+  background-color: #2ecc71;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-incorrect {
+  background-color: #e74c3c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-item p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.stat-item p span {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-blue);
+  margin-right: 10px;
+}
+
+.chart-and-clusters {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 24px;
+}
+
+.chart-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chart-container h4 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: var(--secondary-text);
+  font-weight: 500;
+}
+
+.clusters-container h4 {
+  margin-top: 0;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.cluster h5 {
+  font-size: 1rem;
+  margin-bottom: 8px;
+  color: var(--primary-text);
+}
+
+.cluster h6 {
+  font-size: 0.9rem;
+  color: var(--secondary-text);
+  margin-bottom: 5px;
+  margin-top: 15px;
+}
+
+.cluster ul {
+  padding-left: 20px;
+  font-style: italic;
+  font-size: 0.9rem;
+  color: #7f8c8d;
+}
+
+.loading-dots {
+  text-align: center;
+  margin-top: 20px;
+}
+.loading-dots div {
+  width: 12px;
+  height: 12px;
+  background-color: var(--primary-blue);
+  border-radius: 50%;
+  display: inline-block;
+  animation: bounce 1.4s infinite ease-in-out both;
+}
+.loading-dots div:nth-child(1) { animation-delay: -0.32s; }
+.loading-dots div:nth-child(2) { animation-delay: -0.16s; }
+@keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1.0); } }

@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom"; // Import Routes and Route
 import { jwtDecode } from "jwt-decode";
 import "./App.css";
 import AuthPage from "./components/AuthPage";
 import TeacherDashboard from "./components/TeacherDashboard";
 import StudentDashboard from "./components/StudentDashboard";
 import LandingPage from "./components/LandingPage";
+import AnalysisPage from "./components/AnalysisPage"; // Import the new page
+import SubmissionsViewer from "./components/SubmissionsViewer";
+
 
 function App() {
   const [user, setUser] = useState(null);
@@ -15,7 +19,7 @@ function App() {
     if (token) {
       const decodedUser = jwtDecode(token);
       setUser(decodedUser.user);
-      setShowLanding(false); // skip landing page if already logged in
+      setShowLanding(false);
     }
   }, []);
 
@@ -32,17 +36,14 @@ function App() {
     setShowLanding(true);
   };
 
-  // Show Landing Page first
   if (showLanding && !user) {
     return <LandingPage onNavigate={() => setShowLanding(false)} />;
   }
 
-  // Show Auth Page if user is not logged in
   if (!user) {
     return <AuthPage onLogin={handleLogin} />;
   }
 
-  // Logged-in dashboard
   return (
     <div className="main-app-container">
       <header className="app-header">
@@ -52,7 +53,22 @@ function App() {
         </button>
       </header>
       <main>
-        {user.role === "teacher" ? <TeacherDashboard /> : <StudentDashboard />}
+        <Routes>
+          {/* Main dashboard route */}
+          <Route 
+            path="/" 
+            element={user.role === "teacher" ? <TeacherDashboard /> : <StudentDashboard />} 
+          />
+          {/* Route for the analysis page */}
+          <Route 
+            path="/assignment/:assignmentId" 
+            element={user.role === "teacher" ? <AnalysisPage /> : <p>Access Denied</p>} 
+          />
+          <Route 
+    path="/assignment/:assignmentId/submissions" 
+    element={user.role === "teacher" ? <SubmissionsViewer /> : <p>Access Denied</p>} 
+  />
+        </Routes>
       </main>
     </div>
   );

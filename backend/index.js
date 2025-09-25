@@ -39,6 +39,7 @@ const SubmissionSchema = new mongoose.Schema({
   assignmentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Assignment' },
   studentId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   teacherId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  submissionFileUrl: String,
   qaFormat: Array,
 });
 const Submission = mongoose.model('Submission', SubmissionSchema);
@@ -177,6 +178,84 @@ app.post('/api/assignments/:id/submit', auth, upload.single('submissionFile'), a
     res.status(500).json({ detail: 'Server error during submission.' });
   }
 });
+
+// Add this new route to backend/index.js
+
+app.get('/api/assignments/:id/analyze', auth, async (req, res) => {
+  if (req.user.role !== 'teacher') {
+    return res.status(403).json({ detail: 'Access denied.' });
+  }
+  try {
+    const assignmentId = req.params.id;
+    const submissions = await Submission.find({ assignmentId });
+
+    if (submissions.length === 0) {
+      return res.status(400).json({ detail: 'No submissions yet for this assignment.' });
+    }
+
+    // TODO: Your ML teammate's logic goes here.
+    // They will take the 'submissions' array, process the qaFormat of each,
+    // and send it to LLM #2 to generate the final report.
+    
+    // For now, we return a mock report.
+    const mockReport = {
+      clusters: [
+        {
+          title: "Mock: Misunderstanding of Core Concept",
+          explanation: "This is a placeholder explanation showing that some students are confusing the main idea.",
+          examples: ["'The sun revolves around the Earth.'"],
+          actionPlan: {
+            suggestion: "Consider a 5-minute review of the heliocentric model.",
+            quiz: [{ question: "True or False: The Earth revolves around the Sun." }]
+          }
+        }
+      ]
+    };
+
+    res.json(mockReport);
+
+  } catch (error) {
+    res.status(500).json({ detail: 'Server error during analysis.' });
+  }
+});
+
+
+// Add this new route to backend/index.js
+
+// Replace the old /api/assignments/:id/submit route in backend/index.js
+
+app.get('/api/assignments/:id/submissions', auth, async (req, res) => {
+  if (req.user.role !== 'teacher') {
+    return res.status(403).json({ detail: 'Access denied.' });
+  }
+  try {
+    const assignmentId = req.params.id;
+    const submissions = await Submission.find({ assignmentId });
+
+    // Manually populate student emails for robustness
+    const populatedSubmissions = await Promise.all(
+      submissions.map(async (sub) => {
+        const student = await User.findById(sub.studentId).select('email');
+        return {
+          ...sub.toObject(),
+          studentId: student // Replace the ID with the student object (containing email)
+        };
+      })
+    );
+    
+    res.json(populatedSubmissions);
+  } catch (error) {
+    console.error("Error fetching submissions:", error);
+    res.status(500).json({ detail: 'Server error fetching submissions.' });
+  }
+});
+
+
+
+
+// The rest of the file stays the same
+
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

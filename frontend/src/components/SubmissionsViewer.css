@@ -1,0 +1,79 @@
+.submissions-container {
+  background-color: var(--card-background);
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: var(--box-shadow);
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: var(--primary-blue);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.submission-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.submission-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.student-email {
+  font-weight: 500;
+}
+
+.view-submission-btn {
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  background-color: transparent;
+  color: var(--primary-blue);
+  border: 1px solid var(--primary-blue);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.submission-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.view-qa-btn {
+  /* ... existing styles for view-submission-btn ... */
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  background-color: transparent;
+  color: var(--primary-blue);
+  border: 1px solid var(--primary-blue);
+  border-radius: 6px;
+  cursor: pointer;
+}
+/* In frontend/src/components/SubmissionsViewer.css */
+
+/* ... (keep your other existing styles) ... */
+
+.download-submission-link {
+  display: inline-block;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  background-color: var(--primary-blue); /* Use your primary blue */
+  color: rgb(39, 4, 52); /* Make text white for contrast */
+  border: 1px solid var(--primary-blue);
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+.download-submission-link:hover {
+  background-color: #5a2e9e; /* A slightly darker shade for hover */
+  border-color: #5a2e9e;
+  color:aliceblue
+}
