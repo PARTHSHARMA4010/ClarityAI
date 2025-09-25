@@ -21,7 +21,7 @@ function TeacherDashboard() {
     // ... (Your existing fetchAssignments function is perfect)
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:8000/api/assignments", {
+      const response = await fetch("https://clarityai-new.onrender.com/api/assignments", {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (!response.ok) throw new Error("Failed to fetch assignments.");
@@ -48,7 +48,7 @@ function TeacherDashboard() {
     }
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:8000/api/assignments", {
+      const response = await fetch("https://clarityai-new.onrender.com/api/assignments", {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
         body: formData,

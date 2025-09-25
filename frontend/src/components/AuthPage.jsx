@@ -21,8 +21,8 @@ function AuthPage({ onLogin }) {
     const password = event.target.password.value;
 
     const url = isLogin
-      ? "http://localhost:8000/api/login"
-      : "http://localhost:8000/api/register";
+      ? "https://clarityai-new.onrender.com/api/login"
+      : "https://clarityai-new.onrender.com/api/register";
 
     const body = isLogin
       ? JSON.stringify({ email, password })

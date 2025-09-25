@@ -13,7 +13,7 @@ function SubmissionsViewer() {
       setIsLoading(true);
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`http://localhost:8000/api/assignments/${assignmentId}/submissions`, {
+        const response = await fetch(`https://clarityai-new.onrender.com/api/assignments/${assignmentId}/submissions`, {
           headers: { 'Authorization': `Bearer ${token}` },
         });
         if (!response.ok) throw new Error('Failed to fetch submissions.');

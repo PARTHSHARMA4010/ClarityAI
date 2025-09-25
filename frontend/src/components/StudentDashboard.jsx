@@ -16,7 +16,7 @@ function StudentDashboard() {
       try {
         const token = localStorage.getItem("token");
         const response = await fetch(
-          "http://localhost:8000/api/assignments/student",
+          "https://clarityai-new.onrender.com/api/assignments/student",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -48,7 +48,7 @@ function StudentDashboard() {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:8000/api/assignments/${assignmentId}/submit`,
+        `https://clarityai-new.onrender.com/api/assignments/${assignmentId}/submit`,
         {
           method: "POST",
           headers: { Authorization: `Bearer ${token}` },
