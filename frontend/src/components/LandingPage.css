@@ -1,0 +1,268 @@
+/* ===== General Styles ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body, html {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #3b2c54;
+  background: #f5f3ff;
+  scroll-behavior: smooth;
+}
+
+h1, h2, h3, h4 {
+  color: #3b2c54;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* ===== Navbar ===== */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background: #a78bfa;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.navbar .logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links li a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.nav-links li a:hover {
+  color: #f3e8ff;
+  text-shadow: 0 0 5px white;
+}
+
+/* ===== Hero Section ===== */
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 80px 50px;
+  background: linear-gradient(135deg, #ede9fe 0%, #c4b5fd 100%);
+  border-radius: 0 0 50% 50% / 0 0 10% 10%;
+  animation: fadeIn 1s ease-in;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.hero-buttons button {
+  margin-right: 20px;
+  padding: 12px 25px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.student-btn { background-color: #7c3aed; color: white; }
+.teacher-btn { background-color: white; color: #7c3aed; border: 2px solid #7c3aed; }
+
+.hero-buttons button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(124, 58, 237, 0.3);
+}
+
+/* Hero Image */
+.hero-image {
+  width: 45%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: float 3s ease-in-out infinite;
+  color: #ffffff;
+}
+
+/* ===== How It Works ===== */
+.how-it-works {
+  padding: 80px 50px;
+  text-align: center;
+  background: #f0ebff;
+}
+
+.how-it-works h2 {
+  font-size: 2.5rem;
+  margin-bottom: 50px;
+}
+
+.steps {
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.step-card {
+  background: white;
+  padding: 30px 20px;
+  border-radius: 20px;
+  width: 250px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-align: center;
+}
+
+.step-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 25px rgba(124, 58, 237, 0.25);
+}
+
+.step-card img {
+  width: 60px;
+  margin-bottom: 15px;
+}
+
+/* ===== Features ===== */
+.features {
+  padding: 80px 50px;
+  text-align: center;
+}
+
+.features h2 {
+  font-size: 2.5rem;
+  margin-bottom: 50px;
+}
+
+.feature-cards {
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card {
+  background: white;
+  padding: 25px 20px;
+  border-radius: 20px;
+  width: 250px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-align: center;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 25px rgba(124, 58, 237, 0.25);
+}
+
+.card img {
+  width: 50px;
+  margin-bottom: 15px;
+}
+
+/* ===== About Us ===== */
+.about {
+  padding: 80px 50px;
+  text-align: center;
+  background: #ede9fe;
+  border-radius: 30px 30px 0 0;
+}
+
+.about p {
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ===== Testimonials ===== */
+.testimonials {
+  padding: 80px 50px;
+  text-align: center;
+  background: #f5f3ff;
+}
+
+.testimonials h2 {
+  font-size: 2.5rem;
+  margin-bottom: 50px;
+}
+
+.testimonial-cards {
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.testimonial-card {
+  background: white;
+  padding: 25px 20px;
+  border-radius: 20px;
+  width: 250px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-align: center;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 25px rgba(124, 58, 237, 0.25);
+}
+
+.testimonial-card img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+}
+
+/* ===== Footer ===== */
+.footer {
+  padding: 40px 50px;
+  text-align: center;
+  background: #7c3aed;
+  color: white;
+}
+
+/* ===== Animations ===== */
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+  .hero { flex-direction: column; text-align: center; }
+  .hero-image { width: 70%; margin-top: 30px; }
+  .steps, .feature-cards, .testimonial-cards { flex-direction: column; align-items: center; }
+}

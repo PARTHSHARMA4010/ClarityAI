@@ -1,10 +1,12 @@
-import { useState } from 'react';
-import './AuthPage.css';
+import { useState } from "react";
+import { FaEnvelope, FaLock, FaUserGraduate, FaChalkboardTeacher } from "react-icons/fa";
+import "./AuthPage.css";
 
 function AuthPage({ onLogin }) {
   const [isLogin, setIsLogin] = useState(true);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [role, setRole] = useState("student");
 
   const handleAuth = async (event) => {
     event.preventDefault();
@@ -13,11 +15,10 @@ function AuthPage({ onLogin }) {
 
     const email = event.target.email.value;
     const password = event.target.password.value;
-    const role = event.target.role ? event.target.role.value : undefined;
-    
-    const url = isLogin 
-      ? 'http://localhost:8000/api/login' 
-      : 'http://localhost:8000/api/register';
+
+    const url = isLogin
+      ? "http://localhost:8000/api/login"
+      : "http://localhost:8000/api/register";
 
     const body = isLogin
       ? JSON.stringify({ email, password })
@@ -25,19 +26,16 @@ function AuthPage({ onLogin }) {
 
     try {
       const response = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: body,
       });
 
       const data = await response.json();
-
       if (!response.ok) {
-        throw new Error(data.detail || 'Something went wrong');
+        throw new Error(data.detail || "Something went wrong");
       }
-      
       onLogin(data.access_token);
-
     } catch (err) {
       setError(err.message);
     } finally {
@@ -46,39 +44,71 @@ function AuthPage({ onLogin }) {
   };
 
   return (
-    <div className="auth-container">
-      <div className="auth-card">
-        <h2>{isLogin ? 'Welcome Back!' : 'Create Your Account'}</h2>
-        <form onSubmit={handleAuth}>
-          {error && <p className="error-message">{error}</p>}
-          <div className="input-group">
-            <label htmlFor="email">Email</label>
-            <input type="email" id="email" name="email" required />
-          </div>
-          <div className="input-group">
-            <label htmlFor="password">Password</label>
-            <input type="password" id="password" name="password" required />
-          </div>
-          {!isLogin && (
+    <div className="auth-wrapper">
+      {/* Left Side */}
+      <div className="auth-left">
+        <h1>✨ Clarity AI</h1>
+        <p>Your personalized AI-powered learning companion.</p>
+        {/* <img 
+  src="https://cdn-icons-png.flaticon.com/512/2232/2232688.png" 
+  alt="Books" 
+  className="auth-illustration" 
+/> */}
+
+          <FaGraduationCap size={120} color="#7c3aed" />
+
+      </div>
+
+      {/* Right Side - Form */}
+      <div className="auth-container">
+        <div className="auth-card">
+          <h2>{isLogin ? "Welcome Back 👋" : "Create Your Account 🚀"}</h2>
+
+          {error && <div className="error-box">{error}</div>}
+
+          <form onSubmit={handleAuth}>
             <div className="input-group">
-              <label htmlFor="role">Register as</label>
-              <select id="role" name="role" required>
-                <option value="student">Student</option>
-                <option value="teacher">Teacher</option>
-              </select>
+              <FaEnvelope className="input-icon" />
+              <input type="email" id="email" name="email" placeholder="Email" required />
             </div>
-          )}
-          <button type="submit" className="auth-button" disabled={isLoading}>
-            {isLoading ? 'Loading...' : (isLogin ? 'Login' : 'Register')}
+
+            <div className="input-group">
+              <FaLock className="input-icon" />
+              <input type="password" id="password" name="password" placeholder="Password" required />
+            </div>
+
+            {!isLogin && (
+              <div className="role-toggle">
+                <button
+                  type="button"
+                  className={`role-btn ${role === "student" ? "active" : ""}`}
+                  onClick={() => setRole("student")}
+                >
+                  <FaUserGraduate /> Student
+                </button>
+                <button
+                  type="button"
+                  className={`role-btn ${role === "teacher" ? "active" : ""}`}
+                  onClick={() => setRole("teacher")}
+                >
+                  <FaChalkboardTeacher /> Teacher
+                </button>
+              </div>
+            )}
+
+            <button type="submit" className="auth-button" disabled={isLoading}>
+              {isLoading ? "Loading..." : isLogin ? "Login" : "Register"}
+            </button>
+          </form>
+
+          <button
+            onClick={() => setIsLogin(!isLogin)}
+            className="toggle-button"
+            disabled={isLoading}
+          >
+            {isLogin ? "Need an account? Register" : "Have an account? Login"}
           </button>
-        </form>
-        <button 
-          onClick={() => setIsLogin(!isLogin)} 
-          className="toggle-button"
-          disabled={isLoading}
-        >
-          {isLogin ? 'Need an account? Register' : 'Have an account? Login'}
-        </button>
+        </div>
       </div>
     </div>
   );

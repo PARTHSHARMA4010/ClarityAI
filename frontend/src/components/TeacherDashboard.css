@@ -1,89 +1,187 @@
-.dashboard-container h2 {
-  font-size: 2rem;
-  margin-bottom: 20px;
-  color: var(--primary-text);
+.dashboard-container {
+  padding: 30px;
+  font-family: 'Segoe UI', sans-serif;
+  background: #faf9ff;
+  min-height: 100vh;
 }
 
+/* Header */
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.teacher-icon {
+  font-size: 55px;
+  color: #7d5ba6;
+}
+
+.dashboard-header h2 {
+  margin: 0;
+  font-size: 28px;
+  color: #3b2c54;
+}
+
+.dashboard-header p {
+  margin: 0;
+  color: #6d6d6d;
+}
+
+/* Stats Cards */
+.stats-cards {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.stat-card {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(125, 91, 166, 0.15);
+  transition: transform 0.2s;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+}
+
+.stat-icon {
+  font-size: 30px;
+  color: #7d5ba6;
+}
+
+.stat-card h3 {
+  margin: 0;
+  font-size: 24px;
+  color: #3b2c54;
+}
+
+.stat-card p {
+  margin: 0;
+  font-size: 14px;
+  color: #6d6d6d;
+}
+
+/* Layout */
 .content-wrapper {
   display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 40px;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
 }
 
-.assignment-form-container, .assignment-list-container {
-  background-color: var(--card-background);
-  padding: 24px;
-  border-radius: 12px;
-  box-shadow: var(--box-shadow);
+/* Card */
+.dashboard-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
 }
 
-.assignment-form-container h3, .assignment-list-container h3 {
-  margin-top: 0;
-  margin-bottom: 20px;
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 15px;
+.dashboard-card:hover {
+  transform: translateY(-4px);
 }
 
-.assignment-form .input-group {
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #7d5ba6;
+  font-size: 18px;
   margin-bottom: 15px;
 }
 
-.create-button {
-  width: 100%;
-  padding: 12px;
-  font-size: 1rem;
+/* Form */
+.assignment-form .input-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
 }
 
+.assignment-form label {
+  margin-bottom: 5px;
+  color: #444;
+}
+
+.assignment-form input,
+.assignment-form textarea {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.create-button {
+  background: #7d5ba6;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background 0.2s ease;
+}
+
+.create-button:hover {
+  background: #5e4485;
+}
+
+/* Assignment List */
 .assignment-list {
-  list-style-type: none;
+  list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .assignment-item {
+  border: 1px solid #eee;
+  border-radius: 12px;
   padding: 15px;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.assignment-item:last-child {
-  border-bottom: none;
-}
-
-.assignment-item h4 {
-  margin: 0 0 5px 0;
-  color: var(--primary-blue);
-}
-
-.assignment-item p {
-  margin: 0;
-  color: var(--secondary-text);
-  font-size: 0.9rem;
-}
-
-/* Add this to TeacherDashboard.css */
-
-.input-group input[type="file"] {
-  padding: 10px;
-  background-color: #f4f7f9;
-}
-
-.assignment-item {
+  background: #fefcff;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: box-shadow 0.2s ease;
+}
+
+.assignment-item:hover {
+  box-shadow: 0 2px 10px rgba(125,91,166,0.2);
+}
+
+.assignment-details h4 {
+  margin: 0 0 5px;
+  color: #333;
+}
+
+.assignment-details p {
+  margin: 0;
+  color: #555;
 }
 
 .submission-status {
-  text-align: center;
-  background-color: var(--background-color);
-  padding: 10px 15px;
+  background: #7d5ba6;
+  color: #fff;
+  padding: 6px 12px;
   border-radius: 8px;
-  min-width: 80px;
+  font-size: 14px;
 }
 
-.submission-status span {
-  display: block;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--primary-blue);
+.section-icon {
+  margin-right: 8px;
+  vertical-align: text-bottom;
+  color: #6a0dad; /* lavender purple theme */
+}
+
+.large-icon {
+  font-size: 2rem; /* Bigger size for section headings */
 }

@@ -1,56 +1,220 @@
+/* ===== General Styles ===== */
+.dashboard-container {
+  padding: 40px 60px;
+  background: #f5f3ff;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #3b2c54;
+  animation: fadeIn 1s ease-in;
+}
+
+h2 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+h3 {
+  font-size: 1.8rem;
+  margin-bottom: 30px;
+  color: #7c3aed;
+}
+
+.error-message {
+  color: #d6336c;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+/* ===== Assignment List (Grid Layout) ===== */
 .student-assignment-list {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
+  grid-template-columns: repeat(2, 1fr); /* exactly 2 per row */
+  gap: 40px; /* spacing between cards (both row + col) */
+  justify-items: center;
 }
 
 .student-assignment-item {
-  background-color: var(--card-background);
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: var(--box-shadow);
+  background: white;
+  padding: 25px 20px;
+  border-radius: 20px;
+  width: 90%; /* consistent sizing inside grid */
+  max-width: 400px;
+  box-shadow: 0 6px 18px rgba(124, 58, 237, 0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.student-assignment-item:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 25px rgba(124, 58, 237, 0.3);
 }
 
 .student-assignment-item h4 {
-  margin: 0 0 10px 0;
-  color: var(--primary-text);
+  color: #5b3ea6;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
 }
 
 .student-assignment-item p {
-  margin: 0 0 15px 0;
-  color: var(--secondary-text);
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 15px;
 }
 
 .student-assignment-item a {
-  display: inline-block;
-  margin-bottom: 15px;
-  color: var(--primary-blue);
   text-decoration: none;
-  font-weight: 500;
+  color: #7c3aed;
+  font-weight: bold;
+  margin-bottom: 15px;
+  transition: color 0.3s;
 }
 
 .student-assignment-item a:hover {
-  text-decoration: underline;
+  color: #a78bfa;
 }
 
+/* ===== Submission Area ===== */
 .submission-area {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   align-items: center;
-  border-top: 1px solid var(--border-color);
-  padding-top: 15px;
+  margin-top: 10px;
 }
 
 .submission-area input[type="file"] {
-  flex-grow: 1;
+  border: 2px dashed #c4b5fd;
+  padding: 6px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  background: #f0ebff;
+  transition: border-color 0.3s, background 0.3s;
+}
+
+.submission-area input[type="file"]:hover {
+  border-color: #7c3aed;
+  background: #ede9fe;
 }
 
 .submission-area button {
-  padding: 8px 16px;
-  font-size: 0.9rem;
-  background-color: var(--primary-blue);
+  background: #7c3aed;
   color: white;
+  padding: 8px 18px;
   border: none;
-  border-radius: 6px;
+  border-radius: 10px;
   cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.submission-area button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(124, 58, 237, 0.3);
+}
+
+/* ===== Example Card ===== */
+.student-assignment-item.example {
+  border: 2px dashed #7c3aed;
+  text-align: center;
+  color: #7c3aed;
+}
+
+/* ===== Animations ===== */
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+  .student-assignment-list {
+    grid-template-columns: 1fr; /* stack in one column */
+    gap: 30px;
+  }
+
+  .student-assignment-item {
+    width: 100%;
+  }
+}
+
+/* ===== Progress Overview ===== */
+.progress-overview {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.progress-card {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  width: 200px;
+  box-shadow: 0 6px 18px rgba(124, 58, 237, 0.15);
+}
+
+.progress-card h4 {
+  font-size: 1.2rem;
+  color: #5b3ea6;
+  margin-bottom: 8px;
+}
+
+.progress-number {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #4ade80; /* green for completed */
+}
+
+.progress-number.pending {
+  color: #f87171; /* red for pending */
+}
+
+.progress-number.total {
+  color: #7c3aed; /* purple for total */
+}
+
+/* ===== Progress Chart ===== */
+.progress-chart {
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.bar-container {
+  display: flex;
+  height: 25px;
+  width: 70%;
+  margin: 15px auto;
+  border-radius: 15px;
+  overflow: hidden;
+  background: #e9d5ff;
+}
+
+.bar-completed {
+  background: #4ade80;
+  transition: width 0.6s ease-in-out;
+}
+
+.bar-pending {
+  background: #f87171;
+  transition: width 0.6s ease-in-out;
+}
+
+.bar-legend {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+
+.legend-completed {
+  color: #4ade80;
+  font-weight: bold;
+}
+
+.legend-pending {
+  color: #f87171;
+  font-weight: bold;
 }
