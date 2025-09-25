@@ -1,0 +1,89 @@
+.dashboard-container h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: var(--primary-text);
+}
+
+.content-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 40px;
+}
+
+.assignment-form-container, .assignment-list-container {
+  background-color: var(--card-background);
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: var(--box-shadow);
+}
+
+.assignment-form-container h3, .assignment-list-container h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 15px;
+}
+
+.assignment-form .input-group {
+  margin-bottom: 15px;
+}
+
+.create-button {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+}
+
+.assignment-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.assignment-item {
+  padding: 15px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.assignment-item:last-child {
+  border-bottom: none;
+}
+
+.assignment-item h4 {
+  margin: 0 0 5px 0;
+  color: var(--primary-blue);
+}
+
+.assignment-item p {
+  margin: 0;
+  color: var(--secondary-text);
+  font-size: 0.9rem;
+}
+
+/* Add this to TeacherDashboard.css */
+
+.input-group input[type="file"] {
+  padding: 10px;
+  background-color: #f4f7f9;
+}
+
+.assignment-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.submission-status {
+  text-align: center;
+  background-color: var(--background-color);
+  padding: 10px 15px;
+  border-radius: 8px;
+  min-width: 80px;
+}
+
+.submission-status span {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-blue);
+}

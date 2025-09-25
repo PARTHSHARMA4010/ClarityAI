@@ -1,28 +1,33 @@
 import { useState, useEffect } from 'react';
+import { jwtDecode } from 'jwt-decode';
 import './App.css';
 import AuthPage from './components/AuthPage';
+import TeacherDashboard from './components/TeacherDashboard';
+import StudentDashboard from './components/StudentDashboard';
 
 function App() {
-  const [token, setToken] = useState(null);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const storedToken = localStorage.getItem('token');
-    if (storedToken) {
-      setToken(storedToken);
+    const token = localStorage.getItem('token');
+    if (token) {
+      const decodedUser = jwtDecode(token);
+      setUser(decodedUser.user);
     }
   }, []);
 
-  const handleLogin = (jwtToken) => {
-    localStorage.setItem('token', jwtToken);
-    setToken(jwtToken);
+  const handleLogin = (token) => {
+    localStorage.setItem('token', token);
+    const decodedUser = jwtDecode(token);
+    setUser(decodedUser.user);
   };
   
   const handleLogout = () => {
     localStorage.removeItem('token');
-    setToken(null);
+    setUser(null);
   };
 
-  if (!token) {
+  if (!user) {
     return <AuthPage onLogin={handleLogin} />;
   }
 
@@ -33,8 +38,7 @@ function App() {
         <button onClick={handleLogout} className="logout-button">Logout</button>
       </header>
       <main>
-        {/* We will build the teacher/student dashboards here next */}
-        <p>You are successfully logged in!</p>
+        {user.role === 'teacher' ? <TeacherDashboard /> : <StudentDashboard />}
       </main>
     </div>
   );

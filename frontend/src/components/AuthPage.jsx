@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './AuthPage.css'; // <--- This is the missing line
+import './AuthPage.css';
 
 function AuthPage({ onLogin }) {
   const [isLogin, setIsLogin] = useState(true);
@@ -13,16 +13,21 @@ function AuthPage({ onLogin }) {
 
     const email = event.target.email.value;
     const password = event.target.password.value;
+    const role = event.target.role ? event.target.role.value : undefined;
     
     const url = isLogin 
       ? 'http://localhost:8000/api/login' 
       : 'http://localhost:8000/api/register';
 
+    const body = isLogin
+      ? JSON.stringify({ email, password })
+      : JSON.stringify({ email, password, role });
+
     try {
       const response = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        body: body,
       });
 
       const data = await response.json();
@@ -54,6 +59,15 @@ function AuthPage({ onLogin }) {
             <label htmlFor="password">Password</label>
             <input type="password" id="password" name="password" required />
           </div>
+          {!isLogin && (
+            <div className="input-group">
+              <label htmlFor="role">Register as</label>
+              <select id="role" name="role" required>
+                <option value="student">Student</option>
+                <option value="teacher">Teacher</option>
+              </select>
+            </div>
+          )}
           <button type="submit" className="auth-button" disabled={isLoading}>
             {isLoading ? 'Loading...' : (isLogin ? 'Login' : 'Register')}
           </button>
