@@ -55,6 +55,10 @@ const auth = (req, res, next) => {
   }
 };
 
+app.get('/', (req, res) => {
+  res.status(200).send('Clarity AI Backend is live and running!');
+});
+
 app.post('/api/register', async (req, res) => {
   try {
     const { email, password, role } = req.body;
@@ -251,7 +255,19 @@ app.get('/api/assignments/:id/submissions', auth, async (req, res) => {
 });
 
 
+// Add this new route to backend/index.js
 
+app.get('/api/submissions/student', auth, async (req, res) => {
+  if (req.user.role !== 'student') {
+    return res.status(403).json({ detail: 'Access denied.' });
+  }
+  try {
+    const submissions = await Submission.find({ studentId: req.user.id });
+    res.json(submissions);
+  } catch (error) {
+    res.status(500).json({ detail: 'Server error fetching submissions.' });
+  }
+});
 
 // The rest of the file stays the same
 
